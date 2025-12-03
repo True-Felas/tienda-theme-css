@@ -1,0 +1,17 @@
+{
+  "com.liferay.client.extension.type.configuration.CETConfiguration~tienda-theme-css" : {
+    ":configurator:policy" : "force",
+    "baseURL" : "${portalURL}/o/tienda-theme-css",
+    "buildTimestamp" : 1764725004679,
+    "description" : "",
+    "dxp.lxc.liferay.com.virtualInstanceId" : "default",
+    "name" : "Tienda Theme CSS",
+    "projectId" : "tiendathemecss",
+    "projectName" : "tienda-theme-css",
+    "properties" : [ ],
+    "sourceCodeURL" : "",
+    "type" : "themeCSS",
+    "typeSettings" : [ "clayURL=css/clay.css", "mainURL=css/main.css" ],
+    "webContextPath" : "/tienda-theme-css"
+  }
+}

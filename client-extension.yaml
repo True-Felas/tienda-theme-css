@@ -1,0 +1,9 @@
+assemble:
+    - from: src/img
+      into: static/img
+
+tienda-theme-css:
+    clayURL: css/clay.css
+    mainURL: css/main.css
+    name: Tienda Theme CSS
+    type: themeCSS
