@@ -97,49 +97,50 @@ body {
 /* ========================================
    1. HEADER Y NAVBAR
    ======================================== */
+/* Layout general de la barra */
 .tienda-header {
-    background-color: var(--tienda-white);
-    box-shadow: var(--tienda-shadow);
     position: sticky;
     top: 0;
-    z-index: var(--tienda-z-sticky);
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: 2px solid #2a82ff; /* línea superior azul tipo tienda de PC */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
 
 .tienda-navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--tienda-spacing-md) var(--tienda-spacing-xl);
-    max-width: 1400px;
-    margin: 0 auto;
+    gap: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* Logo */
 .tienda-logo {
-    font-size: var(--tienda-font-size-2xl);
-    font-weight: 700;
-    color: var(--tienda-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
-    
-    &:hover {
-        color: var(--tienda-primary-dark);
-    }
 }
 
+.tienda-logo span {
+    font-weight: 700;
+    font-size: 20px;
+    color: #0070f3;
+}
+
+/* Centro: categorías + búsqueda */
 .tienda-nav-center {
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: var(--tienda-spacing-lg);
+    gap: 10px;
 }
 
-.tienda-nav-right {
-    display: flex;
-    align-items: center;
-    gap: var(--tienda-spacing-md);
-}
-
-/* ========================================
-   2. MENÚ DE CATEGORÍAS (DROPDOWN)
-   ======================================== */
+/* Botón de categorías (abre el menú lateral tipo “hamburguesa”) */
 .tienda-categorias-wrapper {
     position: relative;
 }
@@ -147,78 +148,391 @@ body {
 .tienda-categorias-btn {
     display: flex;
     align-items: center;
-    gap: var(--tienda-spacing-sm);
-    padding: var(--tienda-spacing-sm) var(--tienda-spacing-md);
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    background: #f7f8fa;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.tienda-categorias-btn .icon-bars {
+    font-size: 16px;
+}
+
+.tienda-categorias-btn:hover {
+    background: #ffffff;
+    border-color: #cfd8e3;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* Búsqueda */
+.tienda-busqueda {
+    flex: 1;
+    position: relative;
+}
+
+.tienda-busqueda-input {
+    width: 100%;
+    padding: 8px 32px 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tienda-busqueda-input:focus {
+    border-color: #2a82ff;
+    box-shadow: 0 0 0 2px rgba(42,130,255,0.15);
+}
+
+/* Derecha: enlaces pedidos + cesta */
+.tienda-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Mis pedidos */
+.tienda-pedidos-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tienda-pedidos-link span:first-child {
+    font-size: 16px;
+}
+
+.tienda-pedidos-link:hover {
+    background: #f5f7fb;
+    color: #222;
+}
+
+/* Cesta (icono + contador) */
+.tienda-cesta-wrapper {
+    position: relative;
+}
+
+.tienda-cesta-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    cursor: pointer;
+    transition: background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.tienda-cesta-btn .icon-cart {
+    font-size: 18px;
+}
+
+.tienda-cesta-count {
+    min-width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #ff3b3b;
+    color: #fff;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+}
+
+.tienda-cesta-btn:hover {
+    background: #f5f7fb;
+    border-color: #cfd8e3;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* Dropdown de cesta */
+.tienda-cesta-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 320px;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.04);
+    display: none;
+    flex-direction: column;
+    max-height: 420px;
+    overflow: hidden;
+}
+
+.tienda-cesta-dropdown.active {
+    display: flex;
+}
+
+.tienda-cesta-header {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.tienda-cesta-items {
+    padding: 8px 12px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tienda-cesta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.tienda-cesta-item:last-child {
+    border-bottom: none;
+}
+
+.tienda-cesta-item-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: #f2f2f2;
+}
+
+.tienda-cesta-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tienda-cesta-item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
+.tienda-cesta-item-qty,
+.tienda-cesta-item-price {
+    font-size: 12px;
+    color: #777;
+}
+
+.tienda-cesta-item-remove {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999;
+    padding: 4px;
+}
+
+.tienda-cesta-item-remove:hover {
+    color: #e02424;
+}
+
+.tienda-cesta-empty {
+    text-align: center;
+    padding: 16px 10px;
+    color: #777;
+}
+
+.tienda-cesta-empty-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.tienda-cesta-footer {
+    border-top: 1px solid #f0f0f0;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tienda-cesta-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tienda-cesta-ver-btn {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background: #2a82ff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tienda-cesta-ver-btn:hover {
+    background: #1063d3;
+}
+
+/* TOAST pequeño abajo a la derecha */
+.tienda-toast {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    background: #323232;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    z-index: 1100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.tienda-toast.error {
+    background: #d93025;
+}
+
+/* ========================================
+   2. MENÚ DE CATEGORÍAS (DROPDOWN)
+   ======================================== */
+#btnCategorias{
     background-color: var(--tienda-primary);
     color: var(--tienda-white);
-    border: none;
     border-radius: var(--tienda-border-radius);
-    cursor: pointer;
-    font-weight: 600;
-    transition: var(--tienda-transition-fast);
-    
-    &:hover {
-        background-color: var(--tienda-primary-dark);
-    }
-    
-    .icon-bars {
-        font-size: 1.2em;
-    }
 }
+#btnCategorias:hover{
+    background-color: var(--tienda-primary-dark);
+    color: var(--tienda-white);
+    
+
+
+}
+
+
 
 .tienda-categorias-dropdown {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 280px;
-    background-color: var(--tienda-white);
-    border-radius: var(--tienda-border-radius);
-    box-shadow: var(--tienda-shadow-lg);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: var(--tienda-transition);
-    z-index: var(--tienda-z-dropdown);
-    margin-top: var(--tienda-spacing-sm);
-    
-    &.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
+    height: 100vh;
+    width: 320px;
+    max-width: 80vw;
+    background: #ffffff;
+    box-shadow: 2px 0 18px rgba(0,0,0,0.25);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 1060;   /* mayor que el overlay */
+    display: flex;
+    flex-direction: column;
 }
 
-.tienda-categorias-wrapper:hover .tienda-categorias-dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.tienda-categorias-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1050;   /* por debajo del panel */
+    display: none;
 }
 
+
+.tienda-categorias-dropdown.active {
+    transform: translateX(0);
+}
+
+
+.tienda-categorias-overlay.active {
+    display: block;
+}
+
+#categorias-lista {
+    padding: 12px 14px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Estilo de cada categoría dentro del menú lateral */
 .tienda-categoria-item {
     display: flex;
     align-items: center;
-    gap: var(--tienda-spacing-md);
-    padding: var(--tienda-spacing-md);
-    color: var(--tienda-gray-700);
+    gap: 8px;
+    padding: 8px 4px;
+    border-radius: 4px;
+    color: #333;
     text-decoration: none;
-    transition: var(--tienda-transition-fast);
-    border-bottom: 1px solid var(--tienda-gray-200);
-    
-    &:last-child {
-        border-bottom: none;
-    }
-    
-    &:hover {
-        background-color: var(--tienda-gray-100);
-        color: var(--tienda-primary);
-    }
-    
-    img {
-        width: 32px;
-        height: 32px;
-        object-fit: contain;
-    }
+    font-size: 14px;
 }
+
+.tienda-categoria-item span:first-child {
+    font-size: 16px;
+}
+
+.tienda-categoria-item:hover {
+    background: #f5f7fb;
+}
+
+/* Cabecera del panel lateral (opcional, si quieres añadirla) */
+.tienda-categorias-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ===================== */
+/* Responsivo */
+/* ===================== */
+
+@media (max-width: 768px) {
+    .tienda-navbar {
+        padding: 8px 10px;
+        gap: 10px;
+    }
+
+    .tienda-nav-center {
+        flex: 1;
+    }
+
+    .tienda-pedidos-link span:last-child {
+        display: none; /* en móvil solo icono */
+    }
+
+    .tienda-cesta-dropdown {
+        right: 4px;
+        width: 95vw;
+    }
+		.tienda-categorias-header {
+					padding: 12px 16px;
+					border-bottom: 1px solid #f0f0f0;
+					font-weight: 600;
+					font-size: 13px;
+					text-transform: uppercase;
+					letter-spacing: .04em;
+					color: #666;
+			}
+
+			.tienda-categorias-seccion {
+					padding: 8px 14px 4px;
+			}
+
+}
+
+
+
 
 /* ========================================
    3. CARRITO/CESTA (DROPDOWN)
